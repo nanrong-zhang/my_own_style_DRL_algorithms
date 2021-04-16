@@ -45,7 +45,7 @@ class DQN(object):
         self.value_network_target.eval()
 
     def load_model(self):
-        model_path = "./trained_model/" + str(self.config.algo) + "/actor_" + str(self.config.model_episode) + ".pth"
+        model_path = "./trained_model/" + str(self.config.model_episode) + ".pth"
         if os.path.exists(model_path) :
             print("load model!")
             value_network = torch.load(model_path)
@@ -54,10 +54,10 @@ class DQN(object):
             self.value_network_target.load_state_dict(value_network)
 
     def save_model(self, episode):
-        if not os.path.exists("./trained_model/" + str(self.config.algo) + "/"):
-            os.mkdir("./trained_model/" + str(self.config.algo) + "/")
+        if not os.path.exists("./trained_model/" ):
+            os.mkdir("./trained_model/" )
         torch.save(self.value_network.state_dict(),
-                   "./trained_model/" + str(self.config.algo) + "/actor_" + str(episode) + ".pth"),
+                   "./trained_model/" + str(episode) + ".pth"),
 
     def select_action(self,state):
         sample = random.random()
